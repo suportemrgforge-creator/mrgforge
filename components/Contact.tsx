@@ -10,8 +10,8 @@ const contactInfo = [
       </svg>
     ),
     label: 'E-mail',
-    value: 'suporte@mrgforge.com',
-    href: 'mailto:suporte@mrgforge.com',
+    value: 'suportemrgforge@gmail.com',
+    href: 'mailto:suportemrgforge@gmail.com',
   },
   {
     icon: (

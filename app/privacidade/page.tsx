@@ -138,7 +138,7 @@ export default function PrivacidadePage() {
               </p>
               <p>
                 Contato:{' '}
-                <GoldLink href="mailto:suporte@mrgforge.com">suporte@mrgforge.com</GoldLink>
+                <GoldLink href="mailto:suportemrgforge@gmail.com">suportemrgforge@gmail.com</GoldLink>
                 {' · '}
                 <GoldLink href="https://wa.me/595992959869">+595 992 959 869</GoldLink>
               </p>
@@ -219,7 +219,7 @@ export default function PrivacidadePage() {
               />
               <p>
                 Para exercer qualquer um desses direitos, entre em contato pelo e-mail{' '}
-                <GoldLink href="mailto:suporte@mrgforge.com">suporte@mrgforge.com</GoldLink>.
+                <GoldLink href="mailto:suportemrgforge@gmail.com">suportemrgforge@gmail.com</GoldLink>.
                 Responderemos em até 5 dias úteis.
               </p>
             </Article>
@@ -321,7 +321,7 @@ export default function PrivacidadePage() {
                 <p>Ciudad del Este, Paraguay</p>
                 <p>
                   E-mail:{' '}
-                  <GoldLink href="mailto:suporte@mrgforge.com">suporte@mrgforge.com</GoldLink>
+                  <GoldLink href="mailto:suportemrgforge@gmail.com">suportemrgforge@gmail.com</GoldLink>
                 </p>
                 <p>
                   WhatsApp:{' '}
