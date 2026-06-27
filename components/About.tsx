@@ -4,8 +4,7 @@ import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
 const stats = [
-  { value: '2+', label: 'Projetos entregues' },
-  { value: '2+', label: 'Anos de experiência' },
+  { value: '100%', label: 'Satisfação dos clientes' },
   { value: '100%', label: 'Projetos concluídos' },
 ]
 
@@ -116,7 +115,7 @@ export default function About() {
 
             {/* Stats */}
             <div
-              className="about-reveal grid grid-cols-3 gap-6 mb-10 border-t border-b border-white/5 py-8"
+              className="about-reveal grid grid-cols-2 gap-6 mb-10 border-t border-b border-white/5 py-8"
               style={{ opacity: 0, transform: 'translateY(22px)', transition: 'opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s' }}
             >
               {stats.map((s) => (
