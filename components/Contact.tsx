@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, FormEvent } from 'react'
+import { useLanguage } from '@/context/LanguageContext'
 
 const contactInfo = [
   {
@@ -9,7 +10,7 @@ const contactInfo = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
       </svg>
     ),
-    label: 'E-mail',
+    label: { pt: 'E-mail', es: 'E-mail' },
     value: 'suportemrgforge@gmail.com',
     href: 'mailto:suportemrgforge@gmail.com',
   },
@@ -19,7 +20,7 @@ const contactInfo = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
       </svg>
     ),
-    label: 'WhatsApp',
+    label: { pt: 'WhatsApp', es: 'WhatsApp' },
     value: '+595 992 959 869',
     href: 'https://wa.me/595992959869',
   },
@@ -30,7 +31,7 @@ const contactInfo = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
       </svg>
     ),
-    label: 'Localização',
+    label: { pt: 'Localização', es: 'Ubicación' },
     value: 'Ciudad del Este, Paraguay',
     href: null,
   },
@@ -40,8 +41,8 @@ const contactInfo = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    label: 'Horário',
-    value: 'Segunda a Sexta, 08h às 16h',
+    label: { pt: 'Horário', es: 'Horario' },
+    value: { pt: 'Segunda a Sexta, 08h às 16h', es: 'Lunes a Viernes, 08h a 16h' },
     href: null,
   },
   {
@@ -50,7 +51,7 @@ const contactInfo = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
       </svg>
     ),
-    label: 'Fundadora',
+    label: { pt: 'Fundadora', es: 'Fundadora' },
     value: 'Raquel Sampaio',
     href: null,
   },
@@ -66,6 +67,7 @@ type FormState = {
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null)
+  const { lang } = useLanguage()
   const [form, setForm] = useState<FormState>({
     nome: '',
     email: '',
@@ -74,6 +76,70 @@ export default function Contact() {
     mensagem: '',
   })
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+
+  const t = lang === 'pt'
+    ? {
+        sectionLabel: 'Contato',
+        h2a: 'Vamos construir',
+        h2b: 'algo',
+        h2c: 'extraordinário',
+        h2d: 'juntos.',
+        subtitle: 'Compartilhe sua ideia conosco. Analisamos cada projeto com atenção e respondemos em até 24 horas úteis.',
+        labelName: 'Nome *',
+        labelEmail: 'E-mail *',
+        labelCompany: 'Empresa',
+        labelType: 'Tipo de projeto',
+        labelMessage: 'Mensagem *',
+        placeholderName: 'Seu nome completo',
+        placeholderEmail: 'seu@email.com',
+        placeholderCompany: 'Nome da empresa',
+        placeholderMessage: 'Conte um pouco sobre seu projeto, objetivos e prazo estimado...',
+        selectDefault: 'Selecione...',
+        options: [
+          { value: 'pessoafisica', label: 'Pessoa Física' },
+          { value: 'web', label: 'Site / Landing Page' },
+          { value: 'ecommerce', label: 'E-commerce' },
+          { value: 'app', label: 'Aplicativo Mobile' },
+          { value: 'design', label: 'UI/UX Design' },
+          { value: 'seo', label: 'SEO & Performance' },
+          { value: 'outro', label: 'Outro' },
+        ],
+        sending: 'Enviando...',
+        submit: 'Enviar mensagem',
+        successTitle: 'Mensagem enviada!',
+        successBody: 'Recebemos seu contato e responderemos em breve. Obrigado pelo interesse!',
+      }
+    : {
+        sectionLabel: 'Contacto',
+        h2a: 'Vamos construir',
+        h2b: 'algo',
+        h2c: 'extraordinario',
+        h2d: 'juntos.',
+        subtitle: 'Comparte tu idea con nosotros. Analizamos cada proyecto con atención y respondemos en hasta 24 horas hábiles.',
+        labelName: 'Nombre *',
+        labelEmail: 'E-mail *',
+        labelCompany: 'Empresa',
+        labelType: 'Tipo de proyecto',
+        labelMessage: 'Mensaje *',
+        placeholderName: 'Su nombre completo',
+        placeholderEmail: 'su@email.com',
+        placeholderCompany: 'Nombre de la empresa',
+        placeholderMessage: 'Cuéntenos un poco sobre su proyecto, objetivos y plazo estimado...',
+        selectDefault: 'Seleccione...',
+        options: [
+          { value: 'pessoafisica', label: 'Persona Física' },
+          { value: 'web', label: 'Sitio / Landing Page' },
+          { value: 'ecommerce', label: 'E-commerce' },
+          { value: 'app', label: 'Aplicación Mobile' },
+          { value: 'design', label: 'UI/UX Design' },
+          { value: 'seo', label: 'SEO & Performance' },
+          { value: 'outro', label: 'Otro' },
+        ],
+        sending: 'Enviando...',
+        submit: 'Enviar mensaje',
+        successTitle: '¡Mensaje enviado!',
+        successBody: 'Recibimos su contacto y responderemos en breve. ¡Gracias por el interés!',
+      }
 
   useEffect(() => {
     const section = sectionRef.current
@@ -127,19 +193,18 @@ export default function Contact() {
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-px bg-rose-gold" />
                 <span className="font-inter text-xs tracking-[0.35em] text-white uppercase font-semibold">
-                  Contato
+                  {t.sectionLabel}
                 </span>
               </div>
               <h2 className="font-playfair font-bold text-4xl lg:text-[3.2rem] text-white leading-tight mb-6">
-                Vamos construir<br />
-                algo{' '}
-                <span className="text-white italic">extraordinário</span>
+                {t.h2a}<br />
+                {t.h2b}{' '}
+                <span className="text-white italic">{t.h2c}</span>
                 <br />
-                juntos.
+                {t.h2d}
               </h2>
               <p className="font-inter text-white/50 text-base leading-relaxed mb-12 max-w-sm">
-                Compartilhe sua ideia conosco. Analisamos cada projeto com atenção e
-                respondemos em até 24 horas úteis.
+                {t.subtitle}
               </p>
             </div>
 
@@ -160,17 +225,19 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-inter text-xs text-white/30 uppercase tracking-widest mb-1">
-                      {item.label}
+                      {item.label[lang]}
                     </p>
                     {item.href ? (
                       <a
                         href={item.href}
                         className="font-inter text-sm text-white/70 hover:text-rose-gold transition-colors duration-200"
                       >
-                        {item.value}
+                        {item.value as string}
                       </a>
                     ) : (
-                      <p className="font-inter text-sm text-white/70">{item.value}</p>
+                      <p className="font-inter text-sm text-white/70">
+                        {typeof item.value === 'object' ? (item.value as Record<string, string>)[lang] : item.value}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -190,9 +257,9 @@ export default function Contact() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="font-playfair font-bold text-2xl text-white mb-3">Mensagem enviada!</h3>
+                <h3 className="font-playfair font-bold text-2xl text-white mb-3">{t.successTitle}</h3>
                 <p className="font-inter text-sm text-white/50 max-w-xs">
-                  Recebemos seu contato e responderemos em breve. Obrigado pelo interesse!
+                  {t.successBody}
                 </p>
               </div>
             ) : (
@@ -200,12 +267,12 @@ export default function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                   <div className="flex flex-col gap-1.5">
                     <label className="font-inter text-[10px] tracking-[0.3em] uppercase text-white/30 font-medium">
-                      Nome *
+                      {t.labelName}
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="Seu nome completo"
+                      placeholder={t.placeholderName}
                       className={inputClass}
                       value={form.nome}
                       onChange={(e) => setForm({ ...form, nome: e.target.value })}
@@ -213,12 +280,12 @@ export default function Contact() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="font-inter text-[10px] tracking-[0.3em] uppercase text-white/30 font-medium">
-                      E-mail *
+                      {t.labelEmail}
                     </label>
                     <input
                       type="email"
                       required
-                      placeholder="seu@email.com"
+                      placeholder={t.placeholderEmail}
                       className={inputClass}
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -229,11 +296,11 @@ export default function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                   <div className="flex flex-col gap-1.5">
                     <label className="font-inter text-[10px] tracking-[0.3em] uppercase text-white/30 font-medium">
-                      Empresa
+                      {t.labelCompany}
                     </label>
                     <input
                       type="text"
-                      placeholder="Nome da empresa"
+                      placeholder={t.placeholderCompany}
                       className={inputClass}
                       value={form.empresa}
                       onChange={(e) => setForm({ ...form, empresa: e.target.value })}
@@ -241,33 +308,31 @@ export default function Contact() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="font-inter text-[10px] tracking-[0.3em] uppercase text-white/30 font-medium">
-                      Tipo de projeto
+                      {t.labelType}
                     </label>
                     <select
                       className={`${inputClass} bg-forge-dark appearance-none cursor-pointer`}
                       value={form.projeto}
                       onChange={(e) => setForm({ ...form, projeto: e.target.value })}
                     >
-                      <option value="" disabled style={{ background: '#f9fafb', color: '#111827' }}>Selecione...</option>
-                      <option value="pessoafisica" style={{ background: '#f9fafb', color: '#111827' }}>Pessoa Física</option>
-                      <option value="web" style={{ background: '#f9fafb', color: '#111827' }}>Site / Landing Page</option>
-                      <option value="ecommerce" style={{ background: '#f9fafb', color: '#111827' }}>E-commerce</option>
-                      <option value="app" style={{ background: '#f9fafb', color: '#111827' }}>Aplicativo Mobile</option>
-                      <option value="design" style={{ background: '#f9fafb', color: '#111827' }}>UI/UX Design</option>
-                      <option value="seo" style={{ background: '#f9fafb', color: '#111827' }}>SEO & Performance</option>
-                      <option value="outro" style={{ background: '#f9fafb', color: '#111827' }}>Outro</option>
+                      <option value="" disabled style={{ background: '#f9fafb', color: '#111827' }}>{t.selectDefault}</option>
+                      {t.options.map((opt) => (
+                        <option key={opt.value} value={opt.value} style={{ background: '#f9fafb', color: '#111827' }}>
+                          {opt.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
                   <label className="font-inter text-[10px] tracking-[0.3em] uppercase text-white/30 font-medium">
-                    Mensagem *
+                    {t.labelMessage}
                   </label>
                   <textarea
                     required
                     rows={5}
-                    placeholder="Conte um pouco sobre seu projeto, objetivos e prazo estimado..."
+                    placeholder={t.placeholderMessage}
                     className={`${inputClass} resize-none`}
                     value={form.mensagem}
                     onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
@@ -285,11 +350,11 @@ export default function Contact() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                       </svg>
-                      Enviando...
+                      {t.sending}
                     </>
                   ) : (
                     <>
-                      Enviar mensagem
+                      {t.submit}
                       <svg
                         className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                         fill="none"

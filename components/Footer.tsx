@@ -1,21 +1,6 @@
-const footerLinks = {
-  Empresa: [
-    { label: 'Sobre', href: '#sobre' },
-    { label: 'Serviços', href: '#servicos' },
-    { label: 'Portfólio', href: '#portfolio' },
-    { label: 'Contato', href: '#contato' },
-  ],
-  Serviços: [
-    { label: 'Desenvolvimento Web', href: '#servicos' },
-    { label: 'Aplicativos Mobile', href: '#servicos' },
-    { label: 'UI/UX Design', href: '#servicos' },
-    { label: 'E-commerce', href: '#servicos' },
-  ],
-  Legal: [
-    { label: 'Política de Privacidade', href: '/privacidade#privacidade' },
-    { label: 'Termos de Uso', href: '/privacidade#termos' },
-  ],
-}
+'use client'
+
+import { useLanguage } from '@/context/LanguageContext'
 
 const socials = [
   {
@@ -49,6 +34,57 @@ const socials = [
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { lang } = useLanguage()
+
+  const footerLinks = lang === 'pt'
+    ? {
+        Empresa: [
+          { label: 'Sobre', href: '#sobre' },
+          { label: 'Serviços', href: '#servicos' },
+          { label: 'Portfólio', href: '#portfolio' },
+          { label: 'Contato', href: '#contato' },
+        ],
+        Serviços: [
+          { label: 'Desenvolvimento Web', href: '#servicos' },
+          { label: 'Aplicativos Mobile', href: '#servicos' },
+          { label: 'UI/UX Design', href: '#servicos' },
+          { label: 'E-commerce', href: '#servicos' },
+        ],
+        Legal: [
+          { label: 'Política de Privacidade', href: '/privacidade#privacidade' },
+          { label: 'Termos de Uso', href: '/privacidade#termos' },
+        ],
+      }
+    : {
+        Empresa: [
+          { label: 'Sobre', href: '#sobre' },
+          { label: 'Servicios', href: '#servicos' },
+          { label: 'Portafolio', href: '#portfolio' },
+          { label: 'Contacto', href: '#contato' },
+        ],
+        Servicios: [
+          { label: 'Desarrollo Web', href: '#servicos' },
+          { label: 'Aplicaciones Mobile', href: '#servicos' },
+          { label: 'UI/UX Design', href: '#servicos' },
+          { label: 'E-commerce', href: '#servicos' },
+        ],
+        Legal: [
+          { label: 'Política de Privacidad', href: '/privacidade#privacidade' },
+          { label: 'Términos de Uso', href: '/privacidade#termos' },
+        ],
+      }
+
+  const t = lang === 'pt'
+    ? {
+        tagline: 'Desenvolvimento digital de alto padrão para marcas que não se contentam com o ordinário.',
+        foundedBy: 'Fundada por',
+        rights: 'Todos os direitos reservados.',
+      }
+    : {
+        tagline: 'Desarrollo digital de alto nivel para marcas que no se conforman con lo ordinario.',
+        foundedBy: 'Fundada por',
+        rights: 'Todos los derechos reservados.',
+      }
 
   return (
     <footer id="footer" className="relative bg-forge-deep border-t border-white/5 overflow-hidden">
@@ -79,11 +115,10 @@ export default function Footer() {
             </div>
 
             <p className="font-inter text-sm text-white/35 leading-relaxed max-w-xs mb-3">
-              Desenvolvimento digital de alto padrão para marcas que não se contentam
-              com o ordinário.
+              {t.tagline}
             </p>
             <p className="font-inter text-xs text-white/30 mb-8">
-              Fundada por{' '}
+              {t.foundedBy}{' '}
               <span className="text-white/55 font-medium">Raquel Sampaio</span>
             </p>
 
@@ -129,7 +164,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-inter text-xs text-white/25">
-            © {year} MRG Forge. Todos os direitos reservados.
+            © {year} MRG Forge. {t.rights}
           </p>
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-rose-gold/60" />

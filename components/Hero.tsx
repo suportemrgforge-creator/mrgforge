@@ -1,9 +1,31 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
+  const { lang } = useLanguage()
+
+  const t = lang === 'pt'
+    ? {
+        badge: 'Desenvolvimento Digital',
+        h1a: 'Construído',
+        h1b: 'para durar.',
+        subtitle: 'Criamos experiências digitais que combinam design de alto padrão com engenharia de excelência — porque marcas que importam merecem mais do que o suficiente.',
+        ctaPrimary: 'Ver Portfólio',
+        ctaSecondary: 'Iniciar Projeto',
+        scroll: 'Scroll',
+      }
+    : {
+        badge: 'Desarrollo Digital',
+        h1a: 'Construido',
+        h1b: 'para durar.',
+        subtitle: 'Creamos experiencias digitales que combinan diseño de alto nivel con ingeniería de excelencia — porque las marcas que importan merecen más que lo suficiente.',
+        ctaPrimary: 'Ver Portafolio',
+        ctaSecondary: 'Iniciar Proyecto',
+        scroll: 'Scroll',
+      }
 
   useEffect(() => {
     const el = sectionRef.current
@@ -85,25 +107,23 @@ export default function Hero() {
           <div className="animate-on-load flex items-center gap-3 mb-10">
             <span className="w-10 h-px bg-rose-gold" />
             <span className="font-inter text-xs tracking-[0.35em] text-white uppercase font-semibold">
-              Desenvolvimento Digital
+              {t.badge}
             </span>
           </div>
 
           {/* Headline */}
           <h1 className="animate-on-load font-playfair font-black leading-[1.02] tracking-tight mb-6">
             <span className="block text-5xl sm:text-6xl lg:text-[5.5rem] xl:text-[6.5rem] text-white">
-              Construído
+              {t.h1a}
             </span>
             <span className="block text-5xl sm:text-6xl lg:text-[5.5rem] xl:text-[6.5rem] text-white italic">
-              para durar.
+              {t.h1b}
             </span>
           </h1>
 
           {/* Subtitle */}
           <p className="animate-on-load font-inter text-lg lg:text-xl text-white/55 max-w-xl leading-relaxed mb-8">
-            Criamos experiências digitais que combinam design de alto padrão com
-            engenharia de excelência — porque marcas que importam merecem
-            mais do que o suficiente.
+            {t.subtitle}
           </p>
 
           {/* Slogan pill */}
@@ -120,7 +140,7 @@ export default function Hero() {
               href="#portfolio"
               className="group inline-flex items-center gap-2 font-inter text-sm font-semibold bg-rose-gold hover:bg-rose-gold-light text-forge-black px-7 py-3.5 rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-rose-gold/30 hover:-translate-y-0.5"
             >
-              Ver Portfólio
+              {t.ctaPrimary}
               <svg
                 className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                 fill="none"
@@ -135,7 +155,7 @@ export default function Hero() {
               href="#contato"
               className="inline-flex items-center gap-2 font-inter text-sm font-semibold border border-white/15 hover:border-rose-gold/50 text-white/80 hover:text-white px-7 py-3.5 rounded-full transition-all duration-300 hover:-translate-y-0.5"
             >
-              Iniciar Projeto
+              {t.ctaSecondary}
             </a>
           </div>
         </div>
@@ -144,7 +164,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 hover:opacity-70 transition-opacity duration-300">
         <span className="font-inter text-[10px] tracking-[0.3em] uppercase text-white">
-          Scroll
+          {t.scroll}
         </span>
         <div className="w-px h-10 bg-gradient-to-b from-white to-transparent" />
       </div>

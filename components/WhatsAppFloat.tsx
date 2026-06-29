@@ -1,10 +1,17 @@
+'use client'
+
+import { useLanguage } from '@/context/LanguageContext'
+
 export default function WhatsAppFloat() {
+  const { lang } = useLanguage()
+  const ariaLabel = lang === 'pt' ? 'Falar no WhatsApp' : 'Hablar por WhatsApp'
+
   return (
     <a
       href="https://wa.me/595992959869"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Falar no WhatsApp"
+      aria-label={ariaLabel}
       className="fixed bottom-6 right-6 z-50 group"
     >
       <div className="relative w-12 h-12 rounded-full bg-[#25D366] hover:bg-[#22c35e] flex items-center justify-center shadow-lg shadow-black/30 hover:shadow-xl hover:shadow-[#25D366]/20 transition-all duration-300 hover:-translate-y-1 hover:scale-105">

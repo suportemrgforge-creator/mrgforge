@@ -1,23 +1,58 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-
-const links = [
-  { label: 'Serviços', href: '#servicos' },
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Portfólio', href: '#portfolio' },
-  { label: 'Contato', href: '#contato' },
-]
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const { lang, setLang } = useLanguage()
+
+  const t = lang === 'pt'
+    ? {
+        links: [
+          { label: 'Serviços', href: '#servicos' },
+          { label: 'Sobre', href: '#sobre' },
+          { label: 'Portfólio', href: '#portfolio' },
+          { label: 'Contato', href: '#contato' },
+        ],
+        cta: 'Iniciar Projeto',
+        menuLabel: 'Abrir menu',
+      }
+    : {
+        links: [
+          { label: 'Servicios', href: '#servicos' },
+          { label: 'Sobre', href: '#sobre' },
+          { label: 'Portafolio', href: '#portfolio' },
+          { label: 'Contacto', href: '#contato' },
+        ],
+        cta: 'Iniciar Proyecto',
+        menuLabel: 'Abrir menú',
+      }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const LangToggle = ({ className = '' }: { className?: string }) => (
+    <div className={`flex items-center gap-0.5 border border-white/10 rounded-full p-0.5 ${className}`}>
+      {(['pt', 'es'] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          className={`font-inter text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-full transition-all duration-200 ${
+            lang === l
+              ? 'bg-rose-gold text-forge-black'
+              : 'text-white/35 hover:text-white/70'
+          }`}
+        >
+          {l}
+        </button>
+      ))}
+    </div>
+  )
 
   return (
     <header
@@ -43,7 +78,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <ul className="hidden md:flex items-center gap-10">
-          {links.map((l) => (
+          {t.links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
@@ -56,19 +91,22 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <a
-          href="#contato"
-          className="hidden md:inline-flex items-center gap-2 font-inter text-sm font-semibold bg-rose-gold hover:bg-rose-gold-light text-forge-black px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-rose-gold/25 hover:-translate-y-0.5"
-        >
-          Iniciar Projeto
-        </a>
+        {/* Right side — lang toggle + CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          <LangToggle />
+          <a
+            href="#contato"
+            className="inline-flex items-center gap-2 font-inter text-sm font-semibold bg-rose-gold hover:bg-rose-gold-light text-forge-black px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-rose-gold/25 hover:-translate-y-0.5"
+          >
+            {t.cta}
+          </a>
+        </div>
 
         {/* Mobile toggle */}
         <button
           className="md:hidden w-8 h-6 flex flex-col justify-between group"
           onClick={() => setOpen(!open)}
-          aria-label="Abrir menu"
+          aria-label={t.menuLabel}
         >
           <span
             className={`block h-px bg-white origin-center transition-all duration-300 ${
@@ -91,11 +129,11 @@ export default function Navbar() {
       {/* Mobile drawer */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-500 ${
-          open ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+          open ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         } bg-forge-black/98 backdrop-blur-md border-t border-white/5`}
       >
         <div className="px-6 pt-4 pb-8 flex flex-col gap-5">
-          {links.map((l) => (
+          {t.links.map((l) => (
             <a
               key={l.href}
               href={l.href}
@@ -105,13 +143,16 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <a
-            href="#contato"
-            className="inline-flex justify-center items-center font-inter text-sm font-semibold bg-rose-gold text-forge-black px-6 py-3 rounded-full mt-2"
-            onClick={() => setOpen(false)}
-          >
-            Iniciar Projeto
-          </a>
+          <div className="flex items-center justify-between pt-2 border-t border-white/5">
+            <LangToggle />
+            <a
+              href="#contato"
+              className="inline-flex justify-center items-center font-inter text-sm font-semibold bg-rose-gold text-forge-black px-6 py-3 rounded-full"
+              onClick={() => setOpen(false)}
+            >
+              {t.cta}
+            </a>
+          </div>
         </div>
       </div>
     </header>

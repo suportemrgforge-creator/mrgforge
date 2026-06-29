@@ -2,14 +2,37 @@
 
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
-
-const stats = [
-  { value: '100%', label: 'Satisfação dos clientes' },
-  { value: '100%', label: 'Projetos concluídos' },
-]
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null)
+  const { lang } = useLanguage()
+
+  const t = lang === 'pt'
+    ? {
+        sectionLabel: 'Sobre',
+        role: 'Fundadora & Desenvolvedora Full Stack',
+        bio: 'Desenvolvedora autônoma especializada em transformar ideias em produtos digitais que funcionam e vendem. Cada projeto entregue é construído para durar.',
+        stats: [
+          { value: '100%', label: 'Satisfação dos clientes' },
+          { value: '100%', label: 'Projetos concluídos' },
+        ],
+        location: 'Ciudad del Este,',
+        locationHighlight: 'Paraguay',
+        photoAlt: 'Raquel Sampaio — Fundadora MRG Forge',
+      }
+    : {
+        sectionLabel: 'Sobre',
+        role: 'Fundadora & Desarrolladora Full Stack',
+        bio: 'Desarrolladora autónoma especializada en transformar ideas en productos digitales que funcionan y venden. Cada proyecto entregado está construido para durar.',
+        stats: [
+          { value: '100%', label: 'Satisfacción de clientes' },
+          { value: '100%', label: 'Proyectos completados' },
+        ],
+        location: 'Ciudad del Este,',
+        locationHighlight: 'Paraguay',
+        photoAlt: 'Raquel Sampaio — Fundadora MRG Forge',
+      }
 
   useEffect(() => {
     const section = sectionRef.current
@@ -65,7 +88,7 @@ export default function About() {
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-rose-gold/30 shadow-2xl shadow-black/50">
                 <Image
                   src="/foto.jpg"
-                  alt="Raquel Sampaio — Fundadora MRG Forge"
+                  alt={t.photoAlt}
                   fill
                   className="object-cover"
                   priority
@@ -84,7 +107,7 @@ export default function About() {
             >
               <span className="w-8 h-px bg-rose-gold" />
               <span className="font-inter text-xs tracking-[0.35em] text-white uppercase font-semibold">
-                Sobre
+                {t.sectionLabel}
               </span>
             </div>
 
@@ -97,7 +120,7 @@ export default function About() {
                 Raquel Sampaio
               </h2>
               <p className="font-inter text-rose-gold text-sm font-medium tracking-wide mb-8">
-                Fundadora &amp; Desenvolvedora Full Stack
+                {t.role}
               </p>
             </div>
 
@@ -107,9 +130,7 @@ export default function About() {
               style={{ opacity: 0, transform: 'translateY(22px)', transition: 'opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s' }}
             >
               <p className="font-inter text-white/60 text-base lg:text-lg leading-relaxed mb-10">
-                Desenvolvedora autônoma especializada em transformar ideias em produtos
-                digitais que funcionam e vendem. Cada projeto entregue é construído
-                para durar.
+                {t.bio}
               </p>
             </div>
 
@@ -118,7 +139,7 @@ export default function About() {
               className="about-reveal grid grid-cols-2 gap-6 mb-10 border-t border-b border-white/5 py-8"
               style={{ opacity: 0, transform: 'translateY(22px)', transition: 'opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s' }}
             >
-              {stats.map((s) => (
+              {t.stats.map((s) => (
                 <div key={s.label} className="flex flex-col gap-1">
                   <span className="font-playfair font-bold text-2xl text-white">{s.value}</span>
                   <span className="font-inter text-xs text-white/35 leading-tight">{s.label}</span>
@@ -143,8 +164,8 @@ export default function About() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
                 <span className="font-inter text-sm text-white/50">
-                  Ciudad del Este,{' '}
-                  <span className="text-white/70 font-medium">Paraguay</span>
+                  {t.location}{' '}
+                  <span className="text-white/70 font-medium">{t.locationHighlight}</span>
                 </span>
               </div>
             </div>

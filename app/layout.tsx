@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
+import Providers from './providers'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -49,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${playfair.variable} ${inter.variable}`}>
       <body className="bg-forge-black text-white font-inter antialiased overflow-x-hidden">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
