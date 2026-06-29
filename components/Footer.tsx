@@ -146,7 +146,7 @@ export default function Footer() {
                 {group}
               </h4>
               <ul className="flex flex-col gap-3">
-                {links.map((l) => (
+                {links.map((l: { label: string; href: string }) => (
                   <li key={l.label}>
                     <a
                       href={l.href}
