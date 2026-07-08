@@ -24,12 +24,22 @@ const serviceIcons = [
   </svg>,
 ]
 
+type ServiceData = {
+  title: string
+  description: string
+  price?: string
+  deadline?: string
+  details: string[]
+}
+
 function getServices(lang: Lang) {
-  const data = lang === 'pt'
+  const data: ServiceData[] = lang === 'pt'
     ? [
         {
           title: 'Site Institucional',
           description: 'Presença digital profissional com até 5 páginas, design exclusivo e tudo que sua empresa precisa para se destacar online.',
+          price: 'R$ 2.500',
+          deadline: 'Entrega em 15 dias',
           details: [
             'Até 5 páginas (Home, Sobre, Serviços, Blog e Contato)',
             'Design personalizado e 100% responsivo para todos os dispositivos',
@@ -41,6 +51,8 @@ function getServices(lang: Lang) {
         {
           title: 'Landing Page',
           description: 'Página única de alta conversão — do primeiro scroll ao clique no botão, cada elemento foi pensado para gerar leads e vendas.',
+          price: 'R$ 1.500',
+          deadline: 'Entrega em 7 dias',
           details: [
             'Página única com estrutura focada em conversão',
             'Botão de WhatsApp flutuante com mensagem pré-configurada',
@@ -52,6 +64,8 @@ function getServices(lang: Lang) {
         {
           title: 'E-commerce',
           description: 'Loja virtual completa, do catálogo ao checkout — com pagamentos integrados, controle de frete e painel de gestão próprio.',
+          price: 'A partir de R$ 10.000',
+          deadline: 'Entrega em 45 dias',
           details: [
             'Catálogo de produtos com categorias, filtros e busca inteligente',
             'Carrinho de compras com checkout otimizado para reduzir abandono',
@@ -64,6 +78,8 @@ function getServices(lang: Lang) {
         {
           title: 'App Mobile',
           description: 'Aplicativo nativo para iOS e Android com design fluído, login seguro e notificações push para manter seus usuários engajados.',
+          price: 'R$ 12.000',
+          deadline: 'Entrega em 60 dias',
           details: [
             'Aplicativo publicado na App Store (iOS) e Google Play (Android)',
             'Design nativo seguindo as diretrizes de cada plataforma',
@@ -75,6 +91,8 @@ function getServices(lang: Lang) {
         {
           title: 'Sistema Web',
           description: 'Plataforma web sob medida com dashboard, relatórios e controle de usuários — integrada ao WhatsApp para automações em tempo real.',
+          price: 'R$ 6.000',
+          deadline: 'Entrega em 30 dias',
           details: [
             'Dashboard com indicadores e KPIs em tempo real',
             'Relatórios exportáveis em PDF e Excel',
@@ -86,6 +104,8 @@ function getServices(lang: Lang) {
         {
           title: 'API & Integrações',
           description: 'Conectamos seus sistemas, automatizamos processos e integramos ERPs, CRMs e plataformas de pagamento em um ecossistema unificado.',
+          price: 'R$ 2.000',
+          deadline: 'Entrega em 10 dias',
           details: [
             'Conexão entre sistemas, plataformas e ferramentas externas',
             'Integração com gateways de pagamento (PIX, Stripe, Mercado Pago)',
@@ -99,6 +119,8 @@ function getServices(lang: Lang) {
         {
           title: 'Sitio Institucional',
           description: 'Presencia digital profesional con hasta 5 páginas, diseño exclusivo y todo lo que su empresa necesita para destacarse en línea.',
+          price: 'R$ 2.500',
+          deadline: 'Entrega en 15 días',
           details: [
             'Hasta 5 páginas (Inicio, Sobre, Servicios, Blog y Contacto)',
             'Diseño personalizado y 100% responsivo para todos los dispositivos',
@@ -110,6 +132,8 @@ function getServices(lang: Lang) {
         {
           title: 'Landing Page',
           description: 'Página única de alta conversión — desde el primer scroll hasta el clic en el botón, cada elemento fue diseñado para generar leads y ventas.',
+          price: 'R$ 1.500',
+          deadline: 'Entrega en 7 días',
           details: [
             'Página única con estructura enfocada en conversión',
             'Botón de WhatsApp flotante con mensaje preconfigurado',
@@ -121,6 +145,8 @@ function getServices(lang: Lang) {
         {
           title: 'E-commerce',
           description: 'Tienda virtual completa, del catálogo al checkout — con pagos integrados, control de envío y panel de gestión propio.',
+          price: 'Desde R$ 10.000',
+          deadline: 'Entrega en 45 días',
           details: [
             'Catálogo de productos con categorías, filtros y búsqueda inteligente',
             'Carrito de compras con checkout optimizado para reducir el abandono',
@@ -133,6 +159,8 @@ function getServices(lang: Lang) {
         {
           title: 'App Mobile',
           description: 'Aplicación nativa para iOS y Android con diseño fluido, inicio de sesión seguro y notificaciones push para mantener a sus usuarios comprometidos.',
+          price: 'R$ 12.000',
+          deadline: 'Entrega en 60 días',
           details: [
             'Aplicación publicada en App Store (iOS) y Google Play (Android)',
             'Diseño nativo siguiendo las directrices de cada plataforma',
@@ -144,6 +172,8 @@ function getServices(lang: Lang) {
         {
           title: 'Sistema Web',
           description: 'Plataforma web a medida con dashboard, informes y control de usuarios — integrada con WhatsApp para automatizaciones en tiempo real.',
+          price: 'R$ 6.000',
+          deadline: 'Entrega en 30 días',
           details: [
             'Dashboard con indicadores y KPIs en tiempo real',
             'Informes exportables en PDF y Excel',
@@ -155,6 +185,8 @@ function getServices(lang: Lang) {
         {
           title: 'API e Integraciones',
           description: 'Conectamos sus sistemas, automatizamos procesos e integramos ERPs, CRMs y plataformas de pago en un ecosistema unificado.',
+          price: 'R$ 2.000',
+          deadline: 'Entrega en 10 días',
           details: [
             'Conexión entre sistemas, plataformas y herramientas externas',
             'Integración con gateways de pago (PIX, Stripe, Mercado Pago)',
@@ -378,8 +410,20 @@ export default function Services() {
                   {s.description}
                 </p>
 
+                {/* Price & deadline */}
+                {(s.price || s.deadline) && (
+                  <div className="flex items-center justify-between mt-6 pt-5 border-t border-white/5">
+                    {s.price && (
+                      <span className="font-playfair font-bold text-lg text-rose-gold">{s.price}</span>
+                    )}
+                    {s.deadline && (
+                      <span className="font-inter text-xs text-white/40">{s.deadline}</span>
+                    )}
+                  </div>
+                )}
+
                 {/* Details button */}
-                <div className="mt-6 pt-5 border-t border-white/5">
+                <div className="mt-4 pt-4 border-t border-white/5">
                   <button
                     onClick={() => setActiveIndex(i)}
                     className="inline-flex items-center gap-1.5 font-inter text-xs font-semibold tracking-wide text-white/40 hover:text-rose-gold transition-colors duration-200 group/btn"
